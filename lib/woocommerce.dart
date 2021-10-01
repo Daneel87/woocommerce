@@ -227,6 +227,7 @@ class WooCommerce {
   Future<int?> fetchLoggedInUserId() async {
     _authToken = await _localDbService.getSecurityToken();
     _urlHeader['Authorization'] = 'Bearer ' + _authToken!;
+    _urlHeader['User-Agent'] = 'Flutter app';
     final response = await http.get(Uri.parse(this.baseUrl + URL_USER_ME),
         headers: _urlHeader);
 
