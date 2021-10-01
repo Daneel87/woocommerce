@@ -231,7 +231,7 @@ class WooCommerce {
     final response = await http.get(Uri.parse(this.baseUrl + URL_USER_ME),
         headers: _urlHeader);
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    if (response.statusCode >= 200 && response.statusCode < 300 || response.statusCode == 403) {
       final jsonStr = json.decode(response.body);
       if (jsonStr.length == 0)
         throw new WooCommerceError(
