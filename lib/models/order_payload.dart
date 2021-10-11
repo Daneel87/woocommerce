@@ -335,21 +335,18 @@ class WooOrderPayloadShipping {
 }
 
 class OrderMetaData {
-  int? id;
   String? key;
   dynamic value;
 
-  OrderMetaData({this.id, this.key, this.value});
+  OrderMetaData({this.key, this.value});
 
   OrderMetaData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     key = json['key'];
     value = json['value'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['key'] = this.key;
     data['value'] = this.value;
     return data;
@@ -367,7 +364,6 @@ class LineItems {
   String? subtotalTax;
   String? total;
   String? totalTax;
-  List<Taxes>? taxes;
   List<OrderMetaData>? metaData;
   String? sku;
   String? price;
@@ -383,7 +379,6 @@ class LineItems {
       this.subtotalTax,
       this.total,
       this.totalTax,
-      this.taxes,
       this.metaData,
       this.sku,
       this.price});
@@ -399,7 +394,6 @@ class LineItems {
     subtotalTax = json['subtotal_tax'];
     total = json['total'];
     totalTax = json['total_tax'];
-    taxes = (json['taxes'] as List).map((i) => Taxes.fromJson(i)).toList();
     metaData = (json['meta_data'] as List)
         .map((i) => OrderMetaData.fromJson(i))
         .toList();
@@ -419,9 +413,6 @@ class LineItems {
     data['subtotal_tax'] = this.subtotalTax;
     data['total'] = this.total;
     data['total_tax'] = this.totalTax;
-    if (this.taxes != null) {
-      data['taxes'] = this.taxes!.map((v) => v.toJson()).toList();
-    }
     if (this.metaData != null) {
       data['meta_data'] = this.metaData!.map((v) => v.toJson()).toList();
     }
