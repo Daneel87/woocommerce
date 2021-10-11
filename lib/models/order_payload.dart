@@ -335,54 +335,76 @@ class WooOrderPayloadShipping {
 }
 
 class LineItems {
-  int? productId;
+  int? id;
   String? name;
+  int? productId;
   int? variationId;
+  int? quantity;
   String? taxClass;
   String? subtotal;
+  String? subtotalTax;
   String? total;
-  int? quantity;
+  String? totalTax;
+  List<Taxes>? taxes;
+  List<OrderMetaData>? metaData;
+  String? sku;
+  String? price;
 
   LineItems(
-      {this.productId,
+      {this.id,
       this.name,
+      this.productId,
       this.variationId,
+      this.quantity,
       this.taxClass,
       this.subtotal,
+      this.subtotalTax,
       this.total,
-      this.quantity});
+      this.totalTax,
+      this.taxes,
+      this.metaData,
+      this.sku,
+      this.price});
 
   LineItems.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'];
+    id = json['id'];
     name = json['name'];
+    productId = json['product_id'];
     variationId = json['variation_id'];
+    quantity = json['quantity'];
     taxClass = json['tax_class'];
     subtotal = json['subtotal'];
+    subtotalTax = json['subtotal_tax'];
     total = json['total'];
-    quantity = json['quantity'];
+    totalTax = json['total_tax'];
+    taxes = (json['taxes'] as List).map((i) => Taxes.fromJson(i)).toList();
+    metaData = (json['meta_data'] as List)
+        .map((i) => OrderMetaData.fromJson(i))
+        .toList();
+    sku = json['sku'];
+    price = json['price'].toString();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     data['product_id'] = this.productId;
-    if (this.name != null) {
-      data['name'] = this.name;
-    }
-
-    if (this.variationId != null) {
-      data['variation_id'] = this.variationId;
-    }
-    if (this.taxClass != null) {
-      data['tax_class'] = this.taxClass;
-    }
-    if (this.subtotal != null) {
-      data['subtotal'] = this.subtotal;
-    }
-    if (this.total != null) {
-      data['total'] = this.total;
-    }
-
+    data['variation_id'] = this.variationId;
     data['quantity'] = this.quantity;
+    data['tax_class'] = this.taxClass;
+    data['subtotal'] = this.subtotal;
+    data['subtotal_tax'] = this.subtotalTax;
+    data['total'] = this.total;
+    data['total_tax'] = this.totalTax;
+    if (this.taxes != null) {
+      data['taxes'] = this.taxes!.map((v) => v.toJson()).toList();
+    }
+    if (this.metaData != null) {
+      data['meta_data'] = this.metaData!.map((v) => v.toJson()).toList();
+    }
+    data['sku'] = this.sku;
+    data['price'] = this.price;
     return data;
   }
 
