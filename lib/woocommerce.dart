@@ -1365,14 +1365,14 @@ class WooCommerce {
     }).forEach((k, v) {
       if (v != null) payload[k] = v.toString();
     });
-    List<WooCoupon>? coupons;
+    List<WooCoupon> coupons = [];
     _printToLog('Getting Coupons With Payload : ' + payload.toString());
     _setApiResourceUrl(path: 'coupons', queryParameters: payload);
     final response = await get(queryUri.toString());
     for (var c in response) {
       var coupon = WooCoupon.fromJson(c);
       _printToLog('prod gotten here : ' + order.toString());
-      coupons!.add(coupon);
+      coupons.add(coupon);
     }
     return coupons;
   }
