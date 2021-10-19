@@ -59,7 +59,7 @@ class WooPaymentGateway {
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    order = int.parse(json['order'].toString());
+    order = json['order'].isEmpty ? 0 : json['order'];
     enabled = json['enabled'];
     methodTitle = json['method_title'];
     methodDescription = json['method_description'];
