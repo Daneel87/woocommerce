@@ -1901,7 +1901,7 @@ class WooCommerce {
     if (response.statusCode > 300)
       return Future.error(
           "error: status code ${response.statusCode} ${response.reasonPhrase}");
-    final deleteResponse = await response.stream.bytesToString();
+    final deleteResponse = await json.decode( await response.stream.bytesToString());
     _printToLog("delete response : " + deleteResponse.toString());
     return deleteResponse;
   }
